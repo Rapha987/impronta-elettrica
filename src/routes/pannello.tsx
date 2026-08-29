@@ -194,7 +194,7 @@ function PannelloPage() {
                 onClick={() => setFilter(item)}
                 className={cn(
                   "min-h-10 shrink-0 rounded-full px-3 text-sm",
-                  filter === item ? "bg-fg text-bg" : "bg-surface-2 text-muted",
+                  filter === item ? "bg-accent text-accent-fg" : "bg-surface-2 text-muted",
                 )}
               >
                 {item === "tutte" ? "Tutte" : STATUS_LABEL[item]}

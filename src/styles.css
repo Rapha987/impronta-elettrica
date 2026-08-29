@@ -2,17 +2,17 @@
 @import "tailwindcss";
 
 @theme {
-  --color-bg: #0c0d0f;
-  --color-surface: #14161a;
-  --color-surface-2: #1b1e24;
-  --color-fg: #f3f0e8;
-  --color-muted: #9b968c;
-  --color-subtle: #6e6a63;
-  --color-border: #2a2c31;
-  --color-accent: #c9d6cf;
-  --color-accent-fg: #0c0d0f;
+  --color-bg: #0b0b0b;
+  --color-surface: #141414;
+  --color-surface-2: #1e1e1e;
+  --color-fg: #f6f6f1;
+  --color-muted: #9c9c94;
+  --color-subtle: #6d6d66;
+  --color-border: #2c2c2c;
+  --color-accent: #f5c400;
+  --color-accent-fg: #0b0b0b;
   --color-open: #8faf9a;
-  --color-warn: #c4a574;
+  --color-warn: #f5c400;
   --color-danger: #c47a6a;
   --color-whatsapp: #1f6b4a;
   --color-whatsapp-hover: #1a5c40;
@@ -29,9 +29,9 @@
   --radius-xl: 24px;
   --radius-2xl: 32px;
 
-  --shadow-border: 0 0 0 1px rgba(243, 240, 232, 0.08);
+  --shadow-border: 0 0 0 1px rgba(245, 196, 0, 0.12);
   --shadow-focus: 0 0 0 2px var(--color-accent);
-  --shadow-elevated: 0 0 0 1px rgba(243, 240, 232, 0.08),
+  --shadow-elevated: 0 0 0 1px rgba(245, 196, 0, 0.14),
     0 24px 48px -24px rgba(0, 0, 0, 0.55);
 }
 

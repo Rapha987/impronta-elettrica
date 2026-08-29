@@ -214,7 +214,7 @@ function Home() {
                   className={cn(
                     "rounded-xl px-4 py-3 text-sm",
                     town === "Andria"
-                      ? "bg-fg text-bg"
+                      ? "bg-accent text-accent-fg"
                       : "bg-surface-2 text-muted",
                   )}
                 >

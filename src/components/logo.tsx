@@ -8,10 +8,10 @@ function Mark({ className }: { className?: string }) {
       className={cn("size-8", className)}
       aria-hidden="true"
     >
-      <rect width="32" height="32" rx="8" fill="currentColor" className="text-fg" />
+      <rect width="32" height="32" rx="8" fill="currentColor" className="text-accent" />
       <path
         d="M18.2 7.2 11 16.6h5.1l-2.4 8.2 7.6-10.2h-5.2z"
-        className="text-bg"
+        className="text-accent-fg"
         fill="currentColor"
       />
     </svg>
@@ -35,7 +35,7 @@ export function Logo({
       {!compact && (
         <span className="flex flex-col leading-none">
           <span className="font-display text-xl tracking-tight">Impronta</span>
-          <span className="mt-0.5 text-xs font-medium uppercase tracking-[0.22em] text-muted">
+          <span className="mt-0.5 text-xs font-medium uppercase tracking-[0.22em] text-accent">
             Elettrica
           </span>
         </span>

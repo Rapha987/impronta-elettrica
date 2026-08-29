@@ -156,7 +156,7 @@ export function QuoteWizard() {
                   className={cn(
                     "min-h-11 rounded-full px-3.5 text-sm font-medium transition-colors",
                     selected
-                      ? "bg-fg text-bg"
+                      ? "bg-accent text-accent-fg"
                       : "bg-surface-2 text-muted hover:text-fg",
                   )}
                 >
