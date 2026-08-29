@@ -1,24 +1,24 @@
-@import url("https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Outfit:wght@400;500;600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Outfit:wght@400;500;600;700&display=swap");
 @import "tailwindcss";
 
 @theme {
-  --color-bg: #0b0b0b;
-  --color-surface: #141414;
-  --color-surface-2: #1e1e1e;
-  --color-fg: #f6f6f1;
-  --color-muted: #9c9c94;
-  --color-subtle: #6d6d66;
-  --color-border: #2c2c2c;
-  --color-accent: #f5c400;
-  --color-accent-fg: #0b0b0b;
-  --color-open: #8faf9a;
-  --color-warn: #f5c400;
-  --color-danger: #c47a6a;
+  --color-bg: #005dbc;
+  --color-surface: #004ea3;
+  --color-surface-2: #00428c;
+  --color-fg: #ffffff;
+  --color-muted: #c5daf5;
+  --color-subtle: #8eb4de;
+  --color-border: #3d7ec9;
+  --color-accent: #f8d800;
+  --color-accent-fg: #0052ad;
+  --color-open: #8fde9a;
+  --color-warn: #f8d800;
+  --color-danger: #ff8a7a;
   --color-whatsapp: #1f6b4a;
   --color-whatsapp-hover: #1a5c40;
 
   --font-sans: "Outfit", "Segoe UI", system-ui, sans-serif;
-  --font-display: "Instrument Serif", "Iowan Old Style", Palatino, Georgia, serif;
+  --font-display: "Oswald", "Arial Narrow", "Segoe UI", sans-serif;
   --text-hero: clamp(2.5rem, 1.3rem + 4vw, 3.75rem);
   --text-display: clamp(1.75rem, 1.2rem + 2vw, 2.5rem);
 
@@ -29,10 +29,10 @@
   --radius-xl: 24px;
   --radius-2xl: 32px;
 
-  --shadow-border: 0 0 0 1px rgba(245, 196, 0, 0.12);
+  --shadow-border: 0 0 0 1px rgba(255, 255, 255, 0.16);
   --shadow-focus: 0 0 0 2px var(--color-accent);
-  --shadow-elevated: 0 0 0 1px rgba(245, 196, 0, 0.14),
-    0 24px 48px -24px rgba(0, 0, 0, 0.55);
+  --shadow-elevated: 0 0 0 1px rgba(248, 216, 0, 0.28),
+    0 24px 48px -24px rgba(0, 40, 90, 0.45);
 }
 
 @layer base {
@@ -66,8 +66,12 @@
   }
 
   img {
-    outline: 1px solid rgba(243, 240, 232, 0.1);
+    outline: 1px solid rgba(255, 255, 255, 0.18);
     outline-offset: -1px;
+  }
+
+  img.brand {
+    outline: none;
   }
 
   ::selection {

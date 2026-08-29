@@ -10,11 +10,11 @@ const buttonVariants = cva(
         primary:
           "bg-accent text-accent-fg hover:bg-accent/90",
         secondary:
-          "bg-surface-2 text-fg shadow-[0_0_0_1px_rgba(243,240,232,0.1)] hover:bg-surface",
+          "bg-surface-2 text-fg shadow-[0_0_0_1px_rgba(255,255,255,0.14)] hover:bg-surface",
         ghost: "bg-transparent text-fg hover:bg-surface-2",
         whatsapp: "bg-whatsapp text-fg hover:bg-whatsapp-hover",
         outline:
-          "bg-transparent text-fg shadow-[0_0_0_1px_rgba(243,240,232,0.16)] hover:bg-surface-2",
+          "bg-transparent text-fg shadow-[0_0_0_1px_rgba(255,255,255,0.28)] hover:bg-surface-2",
       },
       size: {
         sm: "h-10 rounded-md px-3.5 text-sm",

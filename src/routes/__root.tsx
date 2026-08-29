@@ -16,7 +16,7 @@ export const Route = createRootRoute({
         content:
           "Elettricista a Andria. Invia una foto del lavoro e ricevi il preventivo. Impronta Elettrica di Troia Cesario.",
       },
-      { name: "theme-color", content: "#0b0b0b" },
+      { name: "theme-color", content: "#005dbc" },
     ],
     links: [
       { rel: "icon", type: "image/svg+xml", href: "/favicon.svg" },

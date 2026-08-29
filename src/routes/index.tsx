@@ -87,7 +87,7 @@ function Home() {
               <span className={cn("size-1.5 rounded-full", open ? "bg-open" : "bg-muted")} />
               {BUSINESS.role}, {BUSINESS.city} · {open ? "Aperto" : "Chiuso ora"}
             </Badge>
-            <h1 className="font-display text-hero leading-tight tracking-tight">
+            <h1 className="font-display text-hero leading-[1.05] tracking-tight">
               Hai bisogno di un elettricista?
             </h1>
             <p className="max-w-lg text-lg leading-relaxed text-muted">

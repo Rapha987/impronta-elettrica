@@ -8,7 +8,7 @@ export function SiteFooter() {
     <footer className="border-t border-border bg-surface">
       <div className="mx-auto grid max-w-6xl gap-10 px-4 py-12 sm:px-6 md:grid-cols-[1.2fr_1fr_1fr]">
         <div className="space-y-4">
-          <Logo />
+          <Logo plate />
           <p className="max-w-sm text-sm leading-relaxed text-muted">
             Impianti elettrici civili ad Andria e provincia. Preventivo da una
             foto, senza giri di chiamate.

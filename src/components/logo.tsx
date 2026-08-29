@@ -1,18 +1,20 @@
 import { Link } from "@tanstack/react-router";
 import { cn } from "@/lib/utils";
 
-function Mark({ className }: { className?: string }) {
+function Bolt({ className }: { className?: string }) {
   return (
     <svg
-      viewBox="0 0 32 32"
-      className={cn("size-8", className)}
+      viewBox="0 0 42 78"
+      className={cn("h-10 w-auto text-accent sm:h-11", className)}
       aria-hidden="true"
     >
-      <rect width="32" height="32" rx="8" fill="currentColor" className="text-accent" />
       <path
-        d="M18.2 7.2 11 16.6h5.1l-2.4 8.2 7.6-10.2h-5.2z"
-        className="text-accent-fg"
-        fill="currentColor"
+        d="M24 3 7 36h14L11 75l26-38H24L32 3Z"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="3.4"
+        strokeLinejoin="miter"
+        strokeLinecap="square"
       />
     </svg>
   );
@@ -21,21 +23,41 @@ function Mark({ className }: { className?: string }) {
 export function Logo({
   className,
   compact = false,
+  plate = false,
 }: {
   className?: string;
   compact?: boolean;
+  plate?: boolean;
 }) {
+  if (plate) {
+    return (
+      <Link
+        to="/"
+        className={cn("inline-flex", className)}
+        aria-label="Impronta Elettrica, torna alla home"
+      >
+        <img
+          src="/logo.png"
+          alt="Impronta Elettrica — impianti elettrici"
+          className="brand size-28 rounded-2xl sm:size-32"
+        />
+      </Link>
+    );
+  }
+
   return (
     <Link
       to="/"
       className={cn("inline-flex items-center gap-2.5 text-fg", className)}
       aria-label="Impronta Elettrica, torna alla home"
     >
-      <Mark />
+      <Bolt />
       {!compact && (
         <span className="flex flex-col leading-none">
-          <span className="font-display text-xl tracking-tight">Impronta</span>
-          <span className="mt-0.5 text-xs font-medium uppercase tracking-[0.22em] text-accent">
+          <span className="font-display text-[1.15rem] uppercase tracking-[0.08em]">
+            Impronta
+          </span>
+          <span className="mt-0.5 font-display text-[0.7rem] uppercase tracking-[0.22em] text-accent">
             Elettrica
           </span>
         </span>
