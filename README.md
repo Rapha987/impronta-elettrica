@@ -19,4 +19,4 @@ npm install
 npm run dev
 ```
 
-WhatsApp business: `330 786 774` · Via Scevola Muzio 28, Andria.
+WhatsApp di test: `327 459 6515` · Via Scevola Muzio 28, Andria.
