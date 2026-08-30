@@ -10,8 +10,8 @@ export function SiteFooter() {
         <div className="space-y-4">
           <Logo plate />
           <p className="max-w-sm text-sm leading-relaxed text-muted">
-            Impianti elettrici civili ad Andria e provincia. Preventivo da una
-            foto, senza giri di chiamate.
+            Impianti elettrici civili ad Andria e provincia. Preventivo su
+            WhatsApp, foto in chat.
           </p>
         </div>
         <div className="space-y-3 text-sm">
@@ -40,7 +40,7 @@ export function SiteFooter() {
         <div className="space-y-3 text-sm">
           <p className="font-medium text-fg">Richieste</p>
           <Link to="/preventivo" className="block text-muted hover:text-fg">
-            Invia foto del lavoro
+            Chiedi un preventivo
           </Link>
           <a
             href={BUSINESS.instagram}
