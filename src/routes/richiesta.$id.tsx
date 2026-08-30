@@ -31,13 +31,15 @@ function ConfermaPage() {
     return (
       <main className="mx-auto flex min-h-dvh max-w-lg flex-col items-center justify-center px-6 text-center">
         <Logo />
-        <h1 className="mt-8 font-display text-3xl">Richiesta non trovata</h1>
-        <p className="mt-3 text-muted">Il codice non corrisponde a nessuna pratica.</p>
+        <h1 className="mt-8 font-display text-3xl">Richiesta inviata</h1>
+        <p className="mt-3 text-muted">
+          Apri WhatsApp, invia il testo e allega le foto dalla graffetta.
+        </p>
         <Link
           to="/preventivo"
           className={cn(buttonVariants({ variant: "primary" }), "mt-8")}
         >
-          Invia una nuova richiesta
+          Nuova richiesta
         </Link>
       </main>
     );
@@ -72,10 +74,11 @@ function ConfermaPage() {
         </div>
         <p className="text-sm font-medium tracking-wide text-open">Richiesta ricevuta</p>
         <h1 className="mt-2 font-display text-4xl tracking-tight">
-          Abbiamo le tue foto.
+          Ora allega le foto in chat.
         </h1>
         <p className="mt-4 text-lg leading-relaxed text-muted">
-          Un tecnico valuta il lavoro e ti ricontatta. Codice pratica{" "}
+          In WhatsApp invia il messaggio già scritto. Poi tocca la graffetta e
+          manda le foto del lavoro. Codice{" "}
           <span className="font-medium text-fg">{quote.id}</span>.
         </p>
 
@@ -107,13 +110,6 @@ function ConfermaPage() {
         </div>
 
         <div className="mt-8 space-y-3">
-          <p className="text-sm font-medium text-fg">
-            Invia anche le foto su WhatsApp a Cesario
-          </p>
-          <p className="text-sm text-muted">
-            Sul telefono si apre WhatsApp con testo e foto già pronte. Scegli la
-            chat e invia.
-          </p>
           <Button
             variant="whatsapp"
             size="lg"
@@ -126,7 +122,7 @@ function ConfermaPage() {
             ) : (
               <MessageCircle className="size-5" />
             )}
-            Invia foto su WhatsApp
+            Apri di nuovo WhatsApp
           </Button>
           <a
             href={`tel:${BUSINESS.phoneTel}`}
