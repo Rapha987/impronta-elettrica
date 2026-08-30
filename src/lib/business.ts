@@ -82,6 +82,7 @@ export function customerWhatsappMessage(input: {
 }) {
   return [
     "Ciao, ho inviato una richiesta preventivo dal sito.",
+    "Adesso allego le foto del lavoro in questa chat.",
     "",
     `Codice: ${input.id}`,
     `Nome: ${input.name}`,
