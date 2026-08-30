@@ -187,8 +187,9 @@ export function QuoteWizard() {
               Dove ti ricontattiamo
             </h1>
             <p className="text-muted">
-              Servono solo per il preventivo. All'invio le foto partono
-              anche su WhatsApp.
+              All'invio si apre Condividi. Tocca WhatsApp, poi il contatto{" "}
+              <span className="font-medium text-fg">327 459 6515</span>. Solo
+              così partono anche le foto.
             </p>
           </header>
           <div className="space-y-2">
