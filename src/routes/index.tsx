@@ -62,7 +62,7 @@ const FAQS = [
   },
   {
     q: "Devo mandarvi le foto su WhatsApp?",
-    a: "Caricale qui: partono ordinate, con zona e recapito. All'invio si apre WhatsApp con le foto già allegate da mandare a Cesario.",
+    a: "Caricale qui: partono ordinate, con zona e recapito. All'invio si apre WhatsApp con il messaggio per Cesario.",
   },
   {
     q: "In quanto rispondete?",
@@ -183,6 +183,16 @@ function Home() {
                 <figcaption className="text-xs text-subtle">{work.label}</figcaption>
               </figure>
             ))}
+          </div>
+          <div className="mt-8 flex justify-center">
+            <a
+              href={BUSINESS.instagram}
+              target="_blank"
+              rel="noreferrer"
+              className={cn(buttonVariants({ variant: "primary", size: "lg" }))}
+            >
+              Vedi altri lavori su Instagram
+            </a>
           </div>
         </section>
 
