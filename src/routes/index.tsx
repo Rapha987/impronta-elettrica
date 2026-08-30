@@ -1,7 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import {
   ArrowRight,
-  Camera,
   Check,
   Clock,
   Lightbulb,
@@ -38,9 +37,9 @@ const SERVICES = [
 ];
 
 const STEPS = [
-  { n: "01", title: "Invii le foto", text: "Dal telefono, anche dal cantiere o dal salotto." },
-  { n: "02", title: "Valutiamo il lavoro", text: "Un tecnico guarda le immagini e la zona." },
-  { n: "03", title: "Ti richiamiamo", text: "Preventivo chiaro, senza giri di messaggi." },
+  { n: "01", title: "Descrivi il lavoro", text: "Tipo di intervento, zona e recapito. Un minuto." },
+  { n: "02", title: "Apri WhatsApp", text: "Si apre la chat con Cesario e il testo già pronto." },
+  { n: "03", title: "Allega le foto in chat", text: "Tocca la graffetta, scegli le immagini e invia." },
 ];
 
 const TOWNS = [
@@ -57,11 +56,11 @@ const TOWNS = [
 const FAQS = [
   {
     q: "Il preventivo è a pagamento?",
-    a: "No. Invia le foto, ti diciamo se il lavoro è fattibile e quanto costa.",
+    a: "No. Ci scrivi su WhatsApp, ti diciamo se il lavoro è fattibile e quanto costa.",
   },
   {
-    q: "Devo mandarvi le foto su WhatsApp?",
-    a: "Caricale qui: partono ordinate, con zona e recapito. All'invio si apre WhatsApp con il messaggio per Cesario.",
+    q: "Dove allego le foto?",
+    a: "In WhatsApp, nella chat che si apre. Tocca la graffetta e manda le immagini del lavoro.",
   },
   {
     q: "In quanto rispondete?",
@@ -90,16 +89,16 @@ function Home() {
               Hai bisogno di un elettricista?
             </h1>
             <p className="max-w-lg text-lg leading-relaxed text-muted">
-              Invia una foto del lavoro. Un tecnico valuta e ti ricontatta con il
-              preventivo — senza il classico “mandami le foto su WhatsApp”.
+              Chiedi il preventivo in un minuto. Si apre WhatsApp con Cesario:
+              invii il testo e alleghi le foto in chat.
             </p>
             <div className="flex flex-col gap-3 sm:flex-row">
               <Link
                 to="/preventivo"
                 className={cn(buttonVariants({ variant: "primary", size: "lg" }), "w-full sm:w-auto")}
               >
-                <Camera className="size-5" />
-                Invia una foto del lavoro
+                <MessageCircle className="size-5" />
+                Chiedi un preventivo
               </Link>
               <a
                 href={whatsappHref()}
@@ -107,8 +106,7 @@ function Home() {
                 rel="noreferrer"
                 className={cn(buttonVariants({ variant: "secondary", size: "lg" }), "w-full sm:w-auto")}
               >
-                <MessageCircle className="size-5" />
-                WhatsApp
+                WhatsApp diretto
               </a>
             </div>
             <p className="flex flex-wrap items-center gap-x-4 gap-y-2 text-sm text-subtle">
@@ -249,17 +247,17 @@ function Home() {
         <section className="px-4 pb-16 sm:px-6">
           <div className="mx-auto max-w-6xl rounded-3xl bg-surface px-6 py-12 shadow-border sm:px-12">
             <h2 className="max-w-lg font-display text-3xl tracking-tight sm:text-4xl">
-              Hai già le foto? Invia la richiesta ora.
+              Serve un elettricista? Scrivici ora.
             </h2>
             <p className="mt-4 max-w-md text-muted">
-              La pratica arriva in ordine: foto, zona, recapito. Cesario ti richiama.
+              Compili due campi, si apre WhatsApp, alleghi le foto in chat.
             </p>
             <ul className="mt-6 space-y-2 text-sm text-muted">
               <li className="flex items-center gap-2">
                 <Check className="size-4 text-open" /> Preventivo gratuito
               </li>
               <li className="flex items-center gap-2">
-                <Check className="size-4 text-open" /> Fino a 5 foto
+                <Check className="size-4 text-open" /> Foto direttamente in WhatsApp
               </li>
               <li className="flex items-center gap-2">
                 <Check className="size-4 text-open" /> Risposta media {BUSINESS.responseHours} ore
@@ -270,7 +268,7 @@ function Home() {
                 to="/preventivo"
                 className={cn(buttonVariants({ variant: "primary", size: "lg" }))}
               >
-                Invia una foto del lavoro
+                Chiedi un preventivo
                 <ArrowRight className="size-4" />
               </Link>
               <a
