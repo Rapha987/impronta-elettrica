@@ -42,6 +42,14 @@ export function SiteFooter() {
           <Link to="/preventivo" className="block text-muted hover:text-fg">
             Invia foto del lavoro
           </Link>
+          <a
+            href={BUSINESS.instagram}
+            className="block text-muted hover:text-fg"
+            target="_blank"
+            rel="noreferrer"
+          >
+            Instagram {BUSINESS.instagramHandle}
+          </a>
           <Link to="/pannello" className="block text-muted hover:text-fg">
             Pannello tecnico
           </Link>
