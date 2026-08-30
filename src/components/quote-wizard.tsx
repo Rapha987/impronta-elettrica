@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "@tanstack/react-router";
 import { ArrowLeft, ArrowRight, LoaderCircle } from "lucide-react";
-import { PhotoUploader } from "@/components/photo-uploader";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -13,9 +12,8 @@ import { shareQuoteToWhatsApp } from "@/lib/share-whatsapp";
 import { cn } from "@/lib/utils";
 
 const STEPS = [
-  { n: 1 as const, label: "Foto" },
-  { n: 2 as const, label: "Lavoro" },
-  { n: 3 as const, label: "Contatto" },
+  { n: 1 as const, label: "Lavoro" },
+  { n: 2 as const, label: "Contatto" },
 ];
 
 export function QuoteWizard() {
@@ -24,31 +22,21 @@ export function QuoteWizard() {
   const [error, setError] = useState<string | null>(null);
   const [submitting, setSubmitting] = useState(false);
 
-  function go(step: 1 | 2 | 3) {
+  function go(step: 1 | 2) {
     setError(null);
     draft.setDraft({ step });
   }
 
   function next() {
-    if (draft.step === 1) {
-      if (draft.photos.length < 1) {
-        setError("Carica almeno una foto del lavoro.");
-        return;
-      }
-      go(2);
+    if (!draft.jobType) {
+      setError("Scegli il tipo di lavoro.");
       return;
     }
-    if (draft.step === 2) {
-      if (!draft.jobType) {
-        setError("Scegli il tipo di lavoro.");
-        return;
-      }
-      if (draft.description.trim().length < 12) {
-        setError("Scrivi due righe su cosa va fatto.");
-        return;
-      }
-      go(3);
+    if (draft.description.trim().length < 12) {
+      setError("Scrivi due righe su cosa va fatto.");
+      return;
     }
+    go(2);
   }
 
   async function submit() {
@@ -62,7 +50,6 @@ export function QuoteWizard() {
     }
     setError(null);
     setSubmitting(true);
-    const photos = [...draft.photos];
     const name = draft.name.trim();
     const phone = draft.phone.trim();
     const zone = draft.zone;
@@ -70,7 +57,7 @@ export function QuoteWizard() {
     const description = draft.description.trim();
     try {
       const result = await createQuoteRequest({
-        data: { name, phone, zone, jobType, description, photos },
+        data: { name, phone, zone, jobType, description },
       });
       await shareQuoteToWhatsApp({
         message: customerWhatsappMessage({
@@ -80,7 +67,7 @@ export function QuoteWizard() {
           jobType,
           description,
         }),
-        photos,
+        photos: [],
       });
       draft.reset();
       await navigate({ to: "/richiesta/$id", params: { id: result.id } });
@@ -96,7 +83,7 @@ export function QuoteWizard() {
 
   return (
     <div className="mx-auto w-full max-w-xl">
-      <ol className="mb-8 grid grid-cols-3 gap-2">
+      <ol className="mb-8 grid grid-cols-2 gap-2">
         {STEPS.map((step) => (
           <li key={step.n} className="flex flex-col gap-2">
             <span
@@ -121,28 +108,11 @@ export function QuoteWizard() {
         <section className="space-y-5">
           <header className="space-y-2">
             <h1 className="font-display text-display tracking-tight">
-              Invia una foto del lavoro
-            </h1>
-            <p className="text-muted">
-              Una foto basta. Se puoi, aggiungine altre: quadro, soffitto, presa
-              o il punto da sistemare.
-            </p>
-          </header>
-          <PhotoUploader
-            photos={draft.photos}
-            onChange={(photos) => draft.setDraft({ photos })}
-          />
-        </section>
-      )}
-
-      {draft.step === 2 && (
-        <section className="space-y-5">
-          <header className="space-y-2">
-            <h1 className="font-display text-display tracking-tight">
               Che lavoro ti serve?
             </h1>
             <p className="text-muted">
-              Scegli la voce più vicina e descrivi cosa vuoi ottenere.
+              Scegli la voce più vicina e descrivi cosa vuoi ottenere. Le foto le
+              alleghi dopo, in WhatsApp.
             </p>
           </header>
           <div className="flex flex-wrap gap-2">
@@ -180,15 +150,15 @@ export function QuoteWizard() {
         </section>
       )}
 
-      {draft.step === 3 && (
+      {draft.step === 2 && (
         <section className="space-y-5">
           <header className="space-y-2">
             <h1 className="font-display text-display tracking-tight">
               Dove ti ricontattiamo
             </h1>
             <p className="text-muted">
-              Si apre la chat WhatsApp con Cesario. Invia il messaggio e,
-              subito dopo, allega le foto dalla clip in basso.
+              Si apre la chat con Cesario. Invia il messaggio e poi allega le
+              foto con la graffetta.
             </p>
           </header>
           <div className="space-y-2">
@@ -231,14 +201,12 @@ export function QuoteWizard() {
           <div className="rounded-xl bg-surface-2 p-4 text-sm text-muted">
             <p className="font-medium text-fg">Riepilogo</p>
             <p className="mt-2">
-              {jobTypeLabel(draft.jobType)} · {draft.photos.length} foto ·{" "}
-              {draft.zone}
+              {jobTypeLabel(draft.jobType)} · {draft.zone}
             </p>
             <p className="mt-1 line-clamp-3">{draft.description}</p>
           </div>
           <p className="rounded-xl bg-accent/15 px-4 py-3 text-sm text-fg">
-            1. Invia il testo già pronto. 2. Tocca la graffetta e allega le foto
-            del lavoro.
+            In WhatsApp: invia il testo, poi tocca la graffetta e allega le foto.
           </p>
         </section>
       )}
@@ -251,16 +219,12 @@ export function QuoteWizard() {
 
       <div className="mt-8 flex gap-3">
         {draft.step > 1 ? (
-          <Button
-            variant="secondary"
-            onClick={() => go((draft.step - 1) as 1 | 2)}
-            className="flex-1"
-          >
+          <Button variant="secondary" onClick={() => go(1)} className="flex-1">
             <ArrowLeft className="size-4" />
             Indietro
           </Button>
         ) : null}
-        {draft.step < 3 ? (
+        {draft.step < 2 ? (
           <Button onClick={next} className="flex-1">
             Continua
             <ArrowRight className="size-4" />
