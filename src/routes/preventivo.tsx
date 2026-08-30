@@ -6,7 +6,7 @@ import { QuoteWizard } from "@/components/quote-wizard";
 export const Route = createFileRoute("/preventivo")({
   component: PreventivoPage,
   head: () => ({
-    meta: [{ title: "Invia una foto del lavoro · Impronta Elettrica" }],
+    meta: [{ title: "Chiedi un preventivo · Impronta Elettrica" }],
   }),
 });
 
