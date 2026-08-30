@@ -187,9 +187,8 @@ export function QuoteWizard() {
               Dove ti ricontattiamo
             </h1>
             <p className="text-muted">
-              All'invio si apre Condividi. Tocca WhatsApp, poi il contatto{" "}
-              <span className="font-medium text-fg">327 459 6515</span>. Solo
-              così partono anche le foto.
+              Si apre la chat WhatsApp con Cesario. Invia il messaggio e,
+              subito dopo, allega le foto dalla clip in basso.
             </p>
           </header>
           <div className="space-y-2">
@@ -237,6 +236,10 @@ export function QuoteWizard() {
             </p>
             <p className="mt-1 line-clamp-3">{draft.description}</p>
           </div>
+          <p className="rounded-xl bg-accent/15 px-4 py-3 text-sm text-fg">
+            1. Invia il testo già pronto. 2. Tocca la graffetta e allega le foto
+            del lavoro.
+          </p>
         </section>
       )}
 
@@ -267,10 +270,10 @@ export function QuoteWizard() {
             {submitting ? (
               <>
                 <LoaderCircle className="size-4 animate-spin" />
-                Invio in corso
+                Apro WhatsApp
               </>
             ) : (
-              "Invia su WhatsApp"
+              "Apri WhatsApp"
             )}
           </Button>
         )}
