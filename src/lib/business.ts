@@ -81,8 +81,7 @@ export function customerWhatsappMessage(input: {
   description: string;
 }) {
   return [
-    "Ciao, ho inviato una richiesta preventivo dal sito.",
-    "Adesso allego le foto del lavoro in questa chat.",
+    "Ciao, vorrei un preventivo.",
     "",
     `Codice: ${input.id}`,
     `Nome: ${input.name}`,
@@ -90,6 +89,8 @@ export function customerWhatsappMessage(input: {
     `Lavoro: ${jobTypeLabel(input.jobType)}`,
     "",
     input.description,
+    "",
+    "Allego le foto del lavoro: tocca la graffetta in basso e scegli le immagini, poi invia.",
   ].join("\n");
 }
 
