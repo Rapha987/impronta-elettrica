@@ -31,9 +31,9 @@ function ConfermaPage() {
     return (
       <main className="mx-auto flex min-h-dvh max-w-lg flex-col items-center justify-center px-6 text-center">
         <Logo />
-        <h1 className="mt-8 font-display text-3xl">Richiesta inviata</h1>
+        <h1 className="mt-8 font-display text-3xl">Richiesta pronta</h1>
         <p className="mt-3 text-muted">
-          Apri WhatsApp, invia il testo e allega le foto dalla graffetta.
+          In WhatsApp invia il testo e allega le foto con la graffetta.
         </p>
         <Link
           to="/preventivo"
@@ -45,7 +45,6 @@ function ConfermaPage() {
     );
   }
 
-  const photos = quote.photos;
   const message = customerWhatsappMessage({
     id: quote.id,
     name: quote.name,
@@ -57,7 +56,7 @@ function ConfermaPage() {
   async function sendWhatsApp() {
     setSharing(true);
     try {
-      await shareQuoteToWhatsApp({ message, photos });
+      await shareQuoteToWhatsApp({ message, photos: [] });
     } finally {
       setSharing(false);
     }
@@ -72,13 +71,13 @@ function ConfermaPage() {
         <div className="mb-6 grid size-14 place-items-center rounded-2xl bg-open/15 text-open">
           <Check className="size-7" strokeWidth={2.2} />
         </div>
-        <p className="text-sm font-medium tracking-wide text-open">Richiesta ricevuta</p>
+        <p className="text-sm font-medium tracking-wide text-open">Chat aperta</p>
         <h1 className="mt-2 font-display text-4xl tracking-tight">
-          Ora allega le foto in chat.
+          Allega le foto in WhatsApp.
         </h1>
         <p className="mt-4 text-lg leading-relaxed text-muted">
-          In WhatsApp invia il messaggio già scritto. Poi tocca la graffetta e
-          manda le foto del lavoro. Codice{" "}
+          Invia il messaggio già scritto. Poi tocca la graffetta e manda le foto
+          del lavoro. Codice{" "}
           <span className="font-medium text-fg">{quote.id}</span>.
         </p>
 
@@ -88,25 +87,8 @@ function ConfermaPage() {
             Tempo medio di risposta: {BUSINESS.responseHours} ore
           </p>
           <p className="text-sm text-muted">
-            {jobTypeLabel(quote.jobType)} · {quote.zone} · {quote.photoCount} foto
+            {jobTypeLabel(quote.jobType)} · {quote.zone}
           </p>
-          {quote.photos.length > 0 && (
-            <div
-              className={cn(
-                "mt-2 grid gap-2",
-                quote.photos.length === 1 ? "grid-cols-1" : "grid-cols-2",
-              )}
-            >
-              {quote.photos.map((src, index) => (
-                <img
-                  key={`${quote.id}-${index}`}
-                  src={src}
-                  alt={`Foto inviata ${index + 1}`}
-                  className="aspect-[4/3] w-full rounded-xl object-cover"
-                />
-              ))}
-            </div>
-          )}
         </div>
 
         <div className="mt-8 space-y-3">
