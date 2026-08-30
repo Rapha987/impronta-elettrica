@@ -8,18 +8,6 @@ const WORKSHOP_PIN = "andria28";
 const JOB_IDS = JOB_TYPES.map((j) => j.id) as [string, ...string[]];
 const ZONE_LIST = [...ZONES] as [string, ...string[]];
 
-const photoSchema = z
-  .string()
-  .min(8)
-  .max(400_000)
-  .refine(
-    (value) =>
-      value.startsWith("data:image/") ||
-      value.startsWith("/") ||
-      value.startsWith("https://"),
-    "Formato foto non valido",
-  );
-
 const createSchema = z.object({
   name: z.string().trim().min(2, "Inserisci il nome").max(80),
   phone: z
@@ -35,7 +23,6 @@ const createSchema = z.object({
     .trim()
     .min(12, "Descrivi il lavoro in almeno due frasi")
     .max(1200),
-  photos: z.array(photoSchema).min(1, "Carica almeno una foto").max(5),
 });
 
 const pinSchema = z.object({
@@ -122,7 +109,7 @@ async function persistQuote(data: z.infer<typeof createSchema>, id: string) {
         ${data.zone},
         ${data.jobType},
         ${data.description},
-        ${JSON.stringify(data.photos)},
+        ${"[]"},
         ${"nuova"}
       )
   `;
