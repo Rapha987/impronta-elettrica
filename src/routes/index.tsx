@@ -24,11 +24,10 @@ export const Route = createFileRoute("/")({
 });
 
 const WORKS = [
-  { src: "/works/soggiorno.jpg", alt: "Soggiorno con faretti LED e luce perimetrale", label: "Soggiorno · Andria" },
-  { src: "/works/esterno.jpg", alt: "Illuminazione facciata al crepuscolo", label: "Esterno" },
-  { src: "/works/cucina.jpg", alt: "Cucina con strisce LED sotto pensili", label: "Cucina" },
-  { src: "/works/quadro.jpg", alt: "Quadro elettrico messo a norma", label: "Quadro" },
-  { src: "/works/bagno.jpg", alt: "Bagno con specchio LED", label: "Bagno" },
+  { src: "/works/2.png", alt: "Sospensioni a LED in cucina", label: "Cucina" },
+  { src: "/works/1.png", alt: "Installazione impianto fotovoltaico", label: "Fotovoltaico" },
+  { src: "/works/3.png", alt: "Impianto elettrico in villa nuova", label: "Villa" },
+  { src: "/works/4.png", alt: "Impianto a pavimento", label: "Pavimento" },
 ];
 
 const SERVICES = [
@@ -173,7 +172,7 @@ function Home() {
 
         <section className="mx-auto max-w-6xl px-4 pb-16 sm:px-6">
           <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
-            {WORKS.slice(1).map((work) => (
+            {WORKS.map((work) => (
               <figure key={work.src} className="space-y-2">
                 <img
                   src={work.src}
