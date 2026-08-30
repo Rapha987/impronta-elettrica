@@ -2,17 +2,15 @@ import { create } from "zustand";
 import { persist, createJSONStorage } from "zustand/middleware";
 
 export type QuoteDraft = {
-  photos: string[];
   jobType: string;
   description: string;
   name: string;
   phone: string;
   zone: string;
-  step: 1 | 2 | 3;
+  step: 1 | 2;
 };
 
 const empty: QuoteDraft = {
-  photos: [],
   jobType: "",
   description: "",
   name: "",
@@ -45,7 +43,6 @@ export const useQuoteDraft = create<QuoteStore>()(
         typeof window === "undefined" ? memoryStorage : sessionStorage,
       ),
       partialize: (state) => ({
-        photos: state.photos,
         jobType: state.jobType,
         description: state.description,
         name: state.name,
