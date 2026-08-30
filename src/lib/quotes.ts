@@ -109,42 +109,54 @@ function toDetail(row: QuoteRow): QuoteDetail {
   };
 }
 
+async function persistQuote(data: z.infer<typeof createSchema>, id: string) {
+  const sql = await getSql();
+  await sql`
+    insert into quote_requests
+      (id, name, phone, zone, job_type, description, photos_json, status)
+    values
+      (
+        ${id},
+        ${data.name},
+        ${data.phone},
+        ${data.zone},
+        ${data.jobType},
+        ${data.description},
+        ${JSON.stringify(data.photos)},
+        ${"nuova"}
+      )
+  `;
+}
+
 export const createQuoteRequest = createServerFn({ method: "POST" })
   .validator(createSchema)
   .handler(async ({ data }) => {
-    const sql = await getSql();
     const id = makeId();
-    await sql`
-      insert into quote_requests
-        (id, name, phone, zone, job_type, description, photos_json, status)
-      values
-        (
-          ${id},
-          ${data.name},
-          ${data.phone},
-          ${data.zone},
-          ${data.jobType},
-          ${data.description},
-          ${JSON.stringify(data.photos)},
-          ${"nuova"}
-        )
-    `;
+    try {
+      await persistQuote(data, id);
+    } catch (err) {
+      console.error("[quotes] database non disponibile, invio WhatsApp comunque", err);
+    }
     return { id };
   });
 
 export const getQuoteRequest = createServerFn({ method: "GET" })
   .validator(z.object({ id: z.string().min(4).max(16) }))
   .handler(async ({ data }) => {
-    const sql = await getSql();
-    const rows = await sql<QuoteRow>`
-      select id, name, phone, zone, job_type, description, status, created_at, photos_json
-      from quote_requests
-      where id = ${data.id}
-      limit 1
-    `;
-    const row = rows[0];
-    if (!row) return null;
-    return toDetail(row);
+    try {
+      const sql = await getSql();
+      const rows = await sql<QuoteRow>`
+        select id, name, phone, zone, job_type, description, status, created_at, photos_json
+        from quote_requests
+        where id = ${data.id}
+        limit 1
+      `;
+      const row = rows[0];
+      if (!row) return null;
+      return toDetail(row);
+    } catch {
+      return null;
+    }
   });
 
 export const unlockWorkshop = createServerFn({ method: "POST" })
@@ -158,70 +170,78 @@ export const listQuoteRequests = createServerFn({ method: "POST" })
   .validator(pinSchema)
   .handler(async ({ data }) => {
     assertPin(data.pin);
-    const sql = await getSql();
-    const rows = await sql<{
-      id: string;
-      name: string;
-      phone: string;
-      zone: string;
-      job_type: string;
-      description: string;
-      status: string;
-      created_at: string;
-      photo_count: number;
-      cover_photo: string | null;
-    }>`
-      select
-        id,
-        name,
-        phone,
-        zone,
-        job_type,
-        left(description, 220) as description,
-        status,
-        created_at,
-        jsonb_array_length(photos_json::jsonb) as photo_count,
-        photos_json::jsonb ->> 0 as cover_photo
-      from quote_requests
-      order by created_at desc
-      limit 80
-    `;
-    return rows.map(
-      (row): QuoteSummary => ({
-        id: row.id,
-        name: row.name,
-        phone: row.phone,
-        zone: row.zone,
-        jobType: row.job_type,
-        description: row.description,
-        status: asStatus(row.status),
-        createdAt: row.created_at,
-        photoCount: Number(row.photo_count) || 0,
-        coverPhoto: row.cover_photo,
-      }),
-    );
+    try {
+      const sql = await getSql();
+      const rows = await sql<{
+        id: string;
+        name: string;
+        phone: string;
+        zone: string;
+        job_type: string;
+        description: string;
+        status: string;
+        created_at: string;
+        photo_count: number;
+        cover_photo: string | null;
+      }>`
+        select
+          id,
+          name,
+          phone,
+          zone,
+          job_type,
+          left(description, 220) as description,
+          status,
+          created_at,
+          jsonb_array_length(photos_json::jsonb) as photo_count,
+          photos_json::jsonb ->> 0 as cover_photo
+        from quote_requests
+        order by created_at desc
+        limit 80
+      `;
+      return rows.map(
+        (row): QuoteSummary => ({
+          id: row.id,
+          name: row.name,
+          phone: row.phone,
+          zone: row.zone,
+          jobType: row.job_type,
+          description: row.description,
+          status: asStatus(row.status),
+          createdAt: row.created_at,
+          photoCount: Number(row.photo_count) || 0,
+          coverPhoto: row.cover_photo,
+        }),
+      );
+    } catch {
+      return [];
+    }
   });
 
 export const getWorkshopQuote = createServerFn({ method: "POST" })
   .validator(z.object({ pin: z.string().min(1).max(40), id: z.string().min(4).max(16) }))
   .handler(async ({ data }) => {
     assertPin(data.pin);
-    const sql = await getSql();
-    const rows = await sql<QuoteRow>`
-      select id, name, phone, zone, job_type, description, status, created_at, photos_json
-      from quote_requests
-      where id = ${data.id}
-      limit 1
-    `;
-    const row = rows[0];
-    if (!row) return null;
-    if (row.status === "nuova") {
-      await sql`
-        update quote_requests set status = ${"vista"} where id = ${row.id} and status = ${"nuova"}
+    try {
+      const sql = await getSql();
+      const rows = await sql<QuoteRow>`
+        select id, name, phone, zone, job_type, description, status, created_at, photos_json
+        from quote_requests
+        where id = ${data.id}
+        limit 1
       `;
-      row.status = "vista";
+      const row = rows[0];
+      if (!row) return null;
+      if (row.status === "nuova") {
+        await sql`
+          update quote_requests set status = ${"vista"} where id = ${row.id} and status = ${"nuova"}
+        `;
+        row.status = "vista";
+      }
+      return toDetail(row);
+    } catch {
+      return null;
     }
-    return toDetail(row);
   });
 
 export const updateQuoteStatus = createServerFn({ method: "POST" })
@@ -234,11 +254,15 @@ export const updateQuoteStatus = createServerFn({ method: "POST" })
   )
   .handler(async ({ data }) => {
     assertPin(data.pin);
-    const sql = await getSql();
-    await sql`
-      update quote_requests
-      set status = ${data.status}
-      where id = ${data.id}
-    `;
+    try {
+      const sql = await getSql();
+      await sql`
+        update quote_requests
+        set status = ${data.status}
+        where id = ${data.id}
+      `;
+    } catch {
+      // Pannello senza database persistente (Vercel Hobby).
+    }
     return { ok: true as const };
   });
